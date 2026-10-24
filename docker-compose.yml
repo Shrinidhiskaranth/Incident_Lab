@@ -1,0 +1,39 @@
+# Incident Lab — one-command startup
+#   docker compose up --build
+#   Frontend: http://localhost:5173
+#   Backend:  http://localhost:8000  (health: /api/health)
+#
+# The browser talks to the backend via localhost:8000 (published port),
+# so VITE_API_URL points at localhost, not the internal service name.
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: incident-lab-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')\""]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: incident-lab-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
