@@ -1,4 +1,3 @@
-# Incident Lab - AI-Powered Cloud Log Analyzer
 
 **Break a system on purpose, then measure how well AI finds what went wrong.**
 
