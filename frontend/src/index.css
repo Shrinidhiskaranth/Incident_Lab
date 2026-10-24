@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 font-sans text-slate-200;
+    background-image:
+      radial-gradient(1200px 500px at 10% -10%, rgba(244, 63, 94, 0.06), transparent 60%),
+      radial-gradient(900px 400px at 100% 0%, rgba(56, 189, 248, 0.05), transparent 60%);
+  }
+
+  ::selection {
+    background: rgba(244, 63, 94, 0.35);
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-ink-700 bg-ink-900/80 shadow-lg shadow-black/30 backdrop-blur;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium
+      transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60
+      disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply btn bg-emerald-500 text-ink-950 hover:bg-emerald-400;
+  }
+
+  .btn-danger {
+    @apply btn bg-rose-500 text-white hover:bg-rose-400;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink-600 bg-ink-800 text-slate-300 hover:bg-ink-700 hover:text-white;
+  }
+
+  .stat-label {
+    @apply text-[11px] font-medium uppercase tracking-wider text-slate-500;
+  }
+}
+
+/* Terminal scrollbar */
+.terminal-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.terminal-scroll::-webkit-scrollbar-track {
+  background: #07090d;
+}
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background: #1f2733;
+  border-radius: 8px;
+  border: 2px solid #07090d;
+}
+.terminal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #2b3544;
+}
